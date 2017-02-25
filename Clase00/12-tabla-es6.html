@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<table></table>
+
+<script>
+	const tabla = document.querySelector("table")
+
+	const ingredientes = []
+
+	ingredientes.push({nombre: "arroz", cantidad: "1 kilo"})
+	ingredientes.push({nombre: "pollo", cantidad: "2 kilos"})
+	ingredientes.push({nombre: "culantro", cantidad: "medio atado"})
+
+	// Se puede acceder a un elemento específico usando el índice
+	console.log(ingredientes[1]) // hace referencia al segundo elemento del arreglo
+
+	// El método "map" devuelve un nuevo arreglo
+	const lista = ingredientes.map( (ingrediente) => {
+		let fila = `
+			<tr>
+				<td>${ingrediente.nombre}</td>
+				<td>${ingrediente.cantidad}</td>
+			</tr>
+		`
+		return fila
+	}).join("")
+
+	tabla.innerHTML = lista
+</script>
+
+
+</body>
+</html>

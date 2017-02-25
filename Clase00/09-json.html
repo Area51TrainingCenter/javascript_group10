@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	// Variable de tipo JSON. Siempre va con llaves. Los pares-valor se separan con "coma". La asignación no es con "=" sino con ":" 
+	const persona = {
+		estatura: 1.8 + " metro",
+		nombre: "Sofia",
+		genero: "mujer",
+		edad: 25,
+		educacion: "universitaria"
+	}
+
+	console.log(persona)
+
+	// Así se cambia el valor de una propiedad
+	persona.nombre = "Ana"
+
+	console.log(persona)
+
+	// Así se agregan propiedades a un JSON
+	persona.colorFavorito = "rojo"
+
+	console.log(persona)
+
+	// Se pueden declarar sin valores
+	const cursos = {}
+
+	cursos.nombre = "Javascript"
+	cursos.frecuencia = "Sábados"
+
+	console.log(cursos)
+
+	// Para eliminar una propiedad
+	delete cursos.nombre
+
+	console.log(cursos)
+
+	Object.freeze(persona)
+
+	persona.edad = 50
+
+</script>
+
+</body>
+</html>
