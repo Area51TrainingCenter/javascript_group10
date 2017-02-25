@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	const edad = 50
+
+	if(edad > 40) {
+		const mensajeViejo = "Ya no eres tan joven"
+		// Se ejecuta si la condición es verdadera
+		console.log(mensajeViejo)
+	} else {
+		var mensajeJoven = "Bien. Aún eres joven"
+		// Se ejecuta si la condición no es verdadera
+		console.log(mensajeJoven)
+	}
+
+	// console.log(mensajeViejo) // Esto da error porque la variable mensajeViejo se declaro dentro del if
+
+	// Aquí da indefinido porque el javascript elevó la variable (o hoising)
+
+	/*
+		//Es como haber escrito como lo siguiente
+
+		var mensajeViejo
+		
+		if(...) {
+	
+		} else {
+			mensajeViejo = '...'
+		}
+
+
+	*/
+	console.log(mensajeJoven)
+
+</script>
+
+</body>
+</html>
