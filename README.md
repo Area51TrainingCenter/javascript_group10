@@ -1,1 +1,2 @@
-# javascript_group10
+# Javascript ES6 (ES2015)
+## Introducción
