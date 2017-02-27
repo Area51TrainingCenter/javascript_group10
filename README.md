@@ -1,2 +1,3 @@
 # Javascript ES6 (ES2015)
-## Introducción
+### Sumario
+0. Introducción
