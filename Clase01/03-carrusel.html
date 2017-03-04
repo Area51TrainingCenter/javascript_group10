@@ -81,8 +81,17 @@
 		}
 
 		const moverClases = () => {
-			const itemRemovido = clases.pop()
-			clases.unshift(itemRemovido)
+/*			const itemRemovido = clases.pop()
+			clases.unshift(itemRemovido)*/
+
+			// Remueve el primer elemento del arreglo
+			// ["img01", "img02", "img03", "img04", "img05", "img06", "img07"]
+			const itemRemovido = clases.shift()  // "img01"
+			// Así queda ["img02", "img03", "img04", "img05", "img06", "img07"] 
+
+			// Inserta el elemento removido en la última posición del arreglo
+			clases.push(itemRemovido)
+			// Luego queda ["img02", "img03", "img04", "img05", "img06", "img07", "img01"]
 		}
 
 		const removerClases = () => {
