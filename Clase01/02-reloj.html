@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		div.reloj {
+			width: 400px;
+			height: 400px;
+			position: relative;
+			margin: 40px auto;
+			border: 10px solid blue;
+			border-radius: 50%
+		}
+
+		div.reloj div.manecilla {
+			position: absolute;
+			height: 6px;
+			top: 50%;
+			margin-top: -3px;
+			left: 50%;
+			transform-origin: left center;
+			transform:  rotate(-90deg)
+		}
+
+		div.reloj div.manecilla.segundero {
+			width: 45%;
+			background-color: black;
+		}
+
+		div.reloj div.manecilla.minutero {
+			width: 35%;
+			background-color: red;
+		}
+
+		div.reloj div.manecilla.horario {
+			width: 25%;
+			background-color: green;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="reloj">
+		<div class="manecilla segundero"></div>
+		<div class="manecilla minutero"></div>
+		<div class="manecilla horario"></div>
+	</div>
+
+	<script>
+		// Ángulo inicial
+		let anguloSegundero
+		let anguloMinutero
+		let anguloHorario
+		// Selección del div con las clases ".manecilla y .segundero"
+		const segundero = document.querySelector("div.manecilla.segundero")
+		const minutero = document.querySelector("div.manecilla.minutero")
+		const horario = document.querySelector("div.manecilla.horario")
+
+		// Función para mover el segundero
+		const moverSegundero = () => {
+			anguloSegundero += 360 / 60
+			segundero.style.transform = `rotate(${anguloSegundero}deg)`
+		}
+
+		// Función para mover el minutero
+		const moverMinutero = () => {
+			anguloMinutero += 360 / (60 * 60)
+			minutero.style.transform = `rotate(${anguloMinutero}deg)`
+		}
+
+		// Función para mover el horario
+		const moverHorario = () => {
+			anguloHorario += 360 / (12 * 60 * 60)
+			horario.style.transform = `rotate(${anguloHorario}deg)`
+		}
+
+		const setearTiempo = () => {
+			// Obtiene el tiempo actual de la computadora. Ejm: 8:30:23
+			const tiempo = new Date()
+			const horas = tiempo.getHours() // Obtiene las horas: 8
+			const minutos = tiempo.getMinutes() // Obtiene los minutos: 30
+			const segundos = tiempo.getSeconds() // Obtiene los segundos: 23
+
+			// Calculo de los ángulos iniciales de las manecillas
+			anguloSegundero = segundos * 360 / 60 - 90
+			anguloMinutero = (minutos + segundos / 60) * 360 / 60 - 90
+			anguloHorario = (horas + minutos / 60) * 360 / 12 - 90
+
+			// Se mueven las manecillas a sus posiciones determinadas por los ángulos iniciales
+			moverSegundero()
+			moverMinutero()
+			moverHorario()
+		}
+
+		setearTiempo()
+
+		setInterval(() => {
+			moverSegundero()
+			moverMinutero()
+			moverHorario()
+		}, 1000)
+
+
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
