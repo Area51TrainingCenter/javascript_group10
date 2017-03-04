@@ -5,12 +5,14 @@
 	<style>
 		:root {
 			--grayscale: 0%;
+			--blur: 0px;
+			--sepia: 0%;
 		}
 
 		img {
 			display: block;
 			margin: 10px auto;
-			filter: grayscale(var(--grayscale));
+			filter: grayscale(var(--grayscale)) blur(var(--blur)) sepia(var(--sepia));
 		}
 		div.control {
 			width:60%;
@@ -36,15 +38,53 @@
 
 	<div class="control">
 		<label>Gris</label>
-		<input type="range" id="grayscale" min="0" max="100" value="0" data-sizing="%">
+		<input type="range" id="grayscale" name="grayscale" min="0" max="100" value="0" data-sizing="%">
 		<label id="valor-grayscale">0</label>
 	</div>
+
+	<div class="control">
+		<label>Blur</label>
+		<input type="range" id="blur" name="blur" min="0" max="10" value="0" data-sizing="px">
+		<label id="valor-blur">0</label>
+	</div>
+
+	<div class="control">
+		<label>Sepia</label>
+		<input type="range" id="sepia" name="sepia" min="0" max="100" value="0" data-sizing="%">
+		<label id="valor-sepia">0</label>
+	</div>
+
 
 	<img src="img/meme.jpg">
 
 	<script>
-		const grayscale = document.querySelector("input#grayscale")
+		const aplicarFiltro = (v,n) => {
+			const etiqueta = document.querySelector(`#valor-${n}`)
+			.innerHTML = v
+			document.documentElement.style.setProperty(`--${n}`, v)
+		}
+
+		const inputs = document.querySelectorAll("input")
+		inputs.forEach(input => {
+			input.addEventListener("change", function(){
+				const unidad = this.dataset.sizing || ""
+				const valor = `${this.value}${unidad}`
+				const nombre = `${this.name}`
+				aplicarFiltro(valor, nombre)
+			})
+			input.addEventListener("mousemove", function(){
+				const unidad = this.dataset.sizing || ""
+				const valor = `${this.value}${unidad}`
+				const nombre = `${this.name}`
+				aplicarFiltro(valor, nombre)
+			})
+		})
+
+/*		const grayscale = document.querySelector("input#grayscale")
 		const valorGrayscale = document.querySelector("label#valor-grayscale")
+
+		const blur = document.querySelector("input#blur")
+		const valorBlur = document.querySelector("label#valor-blur")
 
 		const aplicarFiltro = v => {
 			valorGrayscale.innerHTML = v
@@ -60,7 +100,7 @@
 		grayscale.addEventListener("mousemove", function(){
 			const unidad = this.dataset.sizing || ""
 			const valor = `${this.value}${unidad}`
-		})
+		})*/
 	</script>
 
 
