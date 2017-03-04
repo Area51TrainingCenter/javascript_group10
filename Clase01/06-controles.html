@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		:root {
+			--grayscale: 0%;
+		}
+
+		img {
+			display: block;
+			margin: 10px auto;
+			filter: grayscale(var(--grayscale));
+		}
+		div.control {
+			width:60%;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+
+		div.control label {
+			width:13%;
+			float: left;
+			font-family: Verdana;
+			font-size: 20px
+		}
+
+		div.control input {
+			width: 70%;
+			float: left;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="control">
+		<label>Gris</label>
+		<input type="range" id="grayscale" min="0" max="100" value="0" data-sizing="%">
+		<label id="valor-grayscale">0</label>
+	</div>
+
+	<img src="img/meme.jpg">
+
+	<script>
+		const grayscale = document.querySelector("input#grayscale")
+		const valorGrayscale = document.querySelector("label#valor-grayscale")
+
+		const aplicarFiltro = v => {
+			valorGrayscale.innerHTML = v
+			document.documentElement.style.setProperty("--grayscale", v)
+		}
+
+		grayscale.addEventListener("change", function(){
+			const unidad = this.dataset.sizing || ""
+			const valor = `${this.value}${unidad}`
+			aplicarFiltro(valor)
+		})
+
+		grayscale.addEventListener("mousemove", function(){
+			const unidad = this.dataset.sizing || ""
+			const valor = `${this.value}${unidad}`
+		})
+	</script>
+
+
+
+
+
+
+
+</body>
+</html>

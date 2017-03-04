@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		html, body {
+			width: 100%;
+			height: 100%
+		}
+	</style>
+</head>
+<body>
+
+	<div></div>
+
+<script>
+	const body = document.body
+	const div = document.querySelector("div")
+
+	body.addEventListener("keydown", function(evt){
+		console.log(evt)
+		div.innerHTML = `Presionaste la tecla ${evt.keyCode}`
+	})
+
+	body.addEventListener("keyup", function(evt){
+		console.log(evt)
+		div.innerHTML = `Soltaste la tecla ${evt.keyCode}`
+	})
+
+	body.addEventListener("click", function(evt){
+		console.log(evt)
+		div.innerHTML = `Presionaste el mouse`
+	})
+
+</script>
+
+
+</body>
+</html>

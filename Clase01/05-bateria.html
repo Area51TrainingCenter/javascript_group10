@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			background-image: url(img/fondo.jpg);
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		div.contenedor {
+			width: 100%;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			margin-top: -60px;
+			text-align: center
+		}
+
+		div.contenedor div.tecla {
+			width:100px;
+			line-height: 120px;
+			font-family: Arial;
+			font-size: 36px;
+			color: white;
+			font-weight: bold;
+			text-transform: uppercase;
+			display: inline-block;
+			border: 1px solid yellow;
+			box-sizing: border-box;
+			margin: 0 15px;
+			background-color: black;
+			transition: all 0.07s linear
+		}
+
+		div.contenedor div.tecla.presionada {
+			box-shadow: 0 0 20px yellow
+		}
+	</style>
+</head>
+<body>
+
+<div class="contenedor">
+	<div class="tecla" data-tecla="65">a</div>
+	<div class="tecla" data-tecla="83">s</div>
+	<div class="tecla" data-tecla="68">d</div>
+	<div class="tecla" data-tecla="70">f</div>
+	<div class="tecla" data-tecla="74">j</div>
+	<div class="tecla" data-tecla="75">k</div>
+	<div class="tecla" data-tecla="76">l</div>
+	<div class="tecla" data-tecla="186">ñ</div>
+	<div class="tecla" data-tecla="32">esp</div>
+</div>
+
+<audio src="sonidos/clap.wav" data-tecla="65"></audio>
+<audio src="sonidos/boom.wav" data-tecla="83"></audio>
+<audio src="sonidos/hihat.wav" data-tecla="68"></audio>
+<audio src="sonidos/kick.wav" data-tecla="70"></audio>
+<audio src="sonidos/openhat.wav" data-tecla="74"></audio>
+<audio src="sonidos/ride.wav" data-tecla="75"></audio>
+<audio src="sonidos/snare.wav" data-tecla="76"></audio>
+<audio src="sonidos/tink.wav" data-tecla="186"></audio>
+<audio src="sonidos/tom.wav" data-tecla="32"></audio>
+
+<script>
+	// Selecciona todas las etiquetas "div" que tengan la clase "tecla"
+	const divs = document.querySelectorAll("div.tecla")
+
+	divs.forEach(item => {
+		item.addEventListener("transitionend", e => {
+			e.target.classList.remove("presionada")
+		})
+	})
+
+
+	window.addEventListener("keydown", (e)=>{
+		// e.keyCode nos dice el número ascii de la tecla presionada
+		const teclaPresionada = e.keyCode
+
+		// Seleccionamos la etiqueta audio correpondiente al número ascii de la tecla presionada
+		const audio = document.querySelector(`audio[data-tecla="${teclaPresionada}"]`)
+		// Seleccionamos la etiqueta div correpondiente al número ascii de la tecla presionada
+		const div = document.querySelector(`div[data-tecla="${teclaPresionada}"]`)
+
+		// Si hemos presionado una tecla no considerada, se termina la ejecución de la función
+		if(!audio) return false
+
+		// Fuerza al puntero del audio a ir al comienzo de la línea de tiempo y así ejecutar el sonido otra vez. De otro modo habría que terminar de escuchar el audio
+		div.classList.add("presionada")
+		audio.currentTime = 0
+
+		// Ejecuta el audio
+		audio.play()
+	})
+</script>
+
+</body>
+</html>
