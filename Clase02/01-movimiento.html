@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+			margin:0;
+			padding:0;
+		}
+
+		div.contenedor {
+			width:100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center
+		}
+
+		div.contenedor div.hueco {
+			width: 30px;
+			height: 30px;
+			border-radius:50%;
+			background-color: gray;
+			margin: 40px;
+		}
+
+		div.contenedor div.hueco.seleccionado {
+			background-color: orange
+		}
+
+		div.pelota {
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background-color: red;
+			position: fixed;
+			top:0;
+			left:0;
+			z-index: 1
+		}
+		div.soloVertical {
+			position: fixed;
+			top: 0;
+			left:0;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			font-family: Verdana;
+			font-size: 40px;
+			color:white;
+			font-weight: bold;
+			padding-top: 50px;
+			box-sizing: border-box;
+			display: none;
+			z-index: 10;
+			text-align: center
+		}
+
+		div.mensaje {
+			width:100%;
+			height: 50px;
+			position: fixed;
+			top:0;
+			left: 0;
+			text-align: center;
+			font-family: Arial;
+			font-size:20px;
+			color:blue;
+			font-weight: bold
+		}
+	</style>
+</head>
+<body>
+<div class="mensaje"></div>
+<div class="contenedor">
+</div>
+
+<div class="pelota"></div>
+
+<div class="soloVertical">PON TU CELULAR VERTICAL</div>
+
+
+<script>
+	window.addEventListener("DOMContentLoaded", () => {
+		if(!window.DeviceMotionEvent) return false
+
+		const cantidadHuecos = 10,
+			  desp = 10
+
+		const huecos = []
+
+		const contenedor = document.querySelector("div.contenedor")
+		const soloVertical = document.querySelector("div.soloVertical")
+		const pelota = document.querySelector("div.pelota")
+
+		let pxPelota = pelota.offsetLeft,
+			pyPelota = pelota.offsetTop
+
+		const diametroPelota = pelota.offsetWidth
+		const anchoPagina = document.body.offsetWidth,
+			  altoPagina = document.body.offsetHeight
+
+		const huecoSeleccionado = Math.floor(Math.random() * cantidadHuecos)
+
+		for(let i=0; i<cantidadHuecos; i++) {
+			let seleccionado = false
+			const hueco = document.createElement("div")
+			hueco.className = "hueco"
+
+			if(i == huecoSeleccionado){
+				seleccionado = true
+				hueco.className += " seleccionado"
+			}
+
+			const data = {
+				obj: hueco,
+				objetivo: seleccionado
+			}
+
+			huecos.push(data)
+
+			contenedor.appendChild(hueco)
+		}
+
+		const verificarOrientacion = () =>{
+			// Si no está en posición "portrait" aparece un mensaje diciendo que debe girar el móvil
+			if(window.orientation==0) {
+				soloVertical.style.display = "none"
+			} else {
+				soloVertical.style.display = "block"
+			}
+		}
+
+		const verificarCaida = () => {
+
+			huecos.forEach(hueco => {
+
+				const obj = hueco.obj
+
+				const px = obj.offsetLeft + diametroPelota/2,
+				      py = obj.offsetTop +  diametroPelota/2
+
+				const ppx = pelota.offsetLeft + diametroPelota/2,
+				      ppy = pelota.offsetTop + diametroPelota/2
+
+				const distancia = Math.sqrt(Math.pow(px - ppx, 2) +  Math.pow(py - ppy,2))
+				if(distancia < 2*diametroPelota/3) {
+					const mensaje = document.querySelector("div.mensaje")
+					if(hueco.objetivo) {
+						mensaje.innerHTML = "GANASTE"
+					} else {
+						mensaje.innerHTML = "PERDISTE. INTENTALO OTRA VEZ"
+					}
+				}
+
+			})
+		}
+
+		// Este evento se ejecuta cuando se cambia de orientación en el móvil
+		window.addEventListener("orientationchange", ()=> {
+			verificarOrientacion()
+		})
+
+		// Este evento se ejecuta cuando se mueve el móvil
+		window.addEventListener("devicemotion", evt => {
+			
+			const aceleracionX = evt.accelerationIncludingGravity.x,
+				  aceleracionY = evt.accelerationIncludingGravity.y
+
+
+			if(aceleracionX<-2) {
+				if(pxPelota + desp + diametroPelota <= anchoPagina) {
+					pxPelota = pxPelota + desp
+				}
+			} else if(aceleracionX>2){
+				if(pxPelota - desp >= 0) {
+					pxPelota = pxPelota - desp
+				}
+			}
+
+			if(aceleracionY<-2){
+				if(pyPelota - desp >= 0) {
+					pyPelota -= desp
+				}
+			} else if(aceleracionY>2){
+				if(pyPelota + desp + diametroPelota <= altoPagina) {
+					pyPelota += desp
+				}
+			}
+
+
+			pelota.style.left = `${pxPelota}px`
+			pelota.style.top = `${pyPelota}px`
+
+			verificarCaida()
+
+		})
+
+	})
+</script>
+
+
+
+
+
+
+</body>
+</html>
