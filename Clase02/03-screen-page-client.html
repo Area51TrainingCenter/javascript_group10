@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<p></p>
+
+<script>
+	// ScreenX, ScreenY: miden la distancia de un elemento respecto al monitor del usuario
+
+	// PageX, PageY: miden la distancia de un elemento respecto a la parte superior y a la parte izquierda de la página respectivamente
+
+	// ClientX, ClientY: miden la distancia de un elemento respecto a la parte superior y a la parte izquierda del viewport (el navegador) respectivamente
+
+	const mostrarDatos = () => {
+		const p = document.querySelector("p")
+		p.innerHTML = `
+			ScreenX = ${window.screenX}<br>
+			ScreenY = ${window.screenY}
+		`		
+	}
+
+	window.addEventListener("DOMContentLoaded", () => {
+		mostrarDatos()
+	})
+
+	window.addEventListener("resize", () => {
+		mostrarDatos()
+	})
+	
+
+</script>
+
+</body>
+</html>
