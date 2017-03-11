@@ -21,6 +21,9 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
     const diametroPelota = pelota.offsetWidth
 
+    // Variables de sonidos
+    let sndMusica, sndPunto, sndRebote
+
     // Detecta si la pelota choca con una de las paletas
     const detectarColisionPaleta = () => {
     	const ball = {
@@ -77,6 +80,25 @@ window.addEventListener("DOMContentLoaded", ()=>{
         pyPelota = pelota.offsetTop
     }
 
+    // Cargar Sonidos
+    const cargarSonidos = () => {
+    	sndMusica = document.createElement("audio")
+    	sndMusica.src = "sonidos/Pamgaea.mp3"
+    	sndMusica.loop = true
+    	sndMusica.volume = .3
+    	sndMusica.addEventListener("loadeddata", ()=>{
+    		sndMusica.play()
+    	})
+
+    	sndPunto = document.createElement("audio")
+    	sndPunto.src = "sonidos/coin.wav"
+    	sndPunto.volume = .1
+
+    	sndRebote = document.createElement("audio")
+    	sndRebote.src = "sonidos/bounce.wav"
+    	sndRebote.volume = .2
+    }
+
     // La función "requestAnimationFrame" está implementada de forma diferente por los navegadores
     const ftnAnimacion = window.requestAnimationFrame || window.webkitRequestAnimationFrame || mozRequestAnimationFrame || msRequestAnimationFrame || oRequestAnimationFrame || function(f) {
     		return setTimeout(f, 1000/60)
@@ -94,6 +116,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
     	// Si la pelota está saliendo de la pantalla (eje horizontal), cambio el signo del desplazamiento horizontal (eso produce el "rebote")
     	// dx = (limiteIzquierdo || limiteDerecho) ? dx*-1 : dx
     	if(limiteIzquierdo || limiteDerecho) {
+    		sndPunto.play()
     		dx *= -1
 
     		puntajeIzquierdo = limiteDerecho ? puntajeIzquierdo+1 : puntajeIzquierdo
@@ -110,7 +133,15 @@ window.addEventListener("DOMContentLoaded", ()=>{
     	// Si la pelota está saliendo de la pantalla (eje vertical), cambio el signo del desplazamiento horizontal (eso también produce un "rebote")
     	dy = (limiteSuperior || limiteInferior) ? dy*-1 : dy
 
-		dx = detectarColisionPaleta() ? dx*-1 : dx
+    	if(limiteInferior || limiteSuperior) {
+    		sndRebote.play()
+    	}
+
+    	if(detectarColisionPaleta()) {
+    		dx*=-1
+    		sndRebote.play()
+    	}
+		// dx = detectarColisionPaleta() ? dx*-1 : dx
 
     	pxPelota += dx
     	pyPelota += dy
@@ -130,6 +161,8 @@ window.addEventListener("DOMContentLoaded", ()=>{
 		paletaIzquierda.style.top = `${e.pageY}px`
 		paletaDerecha.style.top = `${e.pageY}px`
 	})
+
+	cargarSonidos()
 
 	ftnAnimacion(mover)
 
