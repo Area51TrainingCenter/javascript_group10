@@ -150,12 +150,24 @@
 
 				const distancia = Math.sqrt(Math.pow(px - ppx, 2) +  Math.pow(py - ppy,2))
 				if(distancia < 2*diametroPelota/3) {
+					pelota.style.top = "0px"
+					pelota.style.left = "0px"
+					pxPelota = 0
+					pyPelota = 0
+
 					const mensaje = document.querySelector("div.mensaje")
 					if(hueco.objetivo) {
 						mensaje.innerHTML = "GANASTE"
 					} else {
 						mensaje.innerHTML = "PERDISTE. INTENTALO OTRA VEZ"
 					}
+
+					const huecoSeleccionado = Math.floor(Math.random() * cantidadHuecos)
+					huecos.forEach(hueco => {
+						hueco.obj.className = "hueco"
+					})
+					huecos[huecoSeleccionado].obj.className = "hueco seleccionado"
+
 				}
 
 			})
