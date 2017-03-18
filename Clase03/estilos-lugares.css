@@ -4,16 +4,73 @@ html, body {
 
 article.contenedor {
 	min-height: 100vh;
-	background-color: red;
 	display: flex;
 	flex-direction: row;
 }
 
 article.contenedor section.lugar {
-	border: 1px solid green;
+	background-position: center;
+	background-size: cover;
 	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	box-shadow: inset 0 0 0 5px rgba(255, 255, 255, .3);
+	transition: flex .5s cubic-bezier(0.61, -0.19, 0.7, -0.11)
+}
+
+article.contenedor section.lugar.activo {
+	flex: 5;
+}
+
+article.contenedor section.lugar > * {
+	text-align: center;
+	font-family: Verdana;
+	color: white;
+	text-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+}
+
+article.contenedor section.lugar h3 {
+	font-size: 1.7em;
+	transition: transform 300ms
+}
+
+article.contenedor section.lugar h3:first-child {
+	transform: translateY(-200%);
+}
+
+article.contenedor section.lugar h3:last-child {
+	transform: translateY(200%);
+}
+
+article.contenedor section.lugar.desplegar h3:first-child {
+	transform: translateY(0);
+}
+
+article.contenedor section.lugar.desplegar h3:last-child {
+	transform: translateY(0);
+}
+
+article.contenedor section.lugar h2 {
+	font-size: 2.3em
 }
 
 article.contenedor section.lugar.lugar01 {
-	background-image: url()
+	background-image: url(img/chanchamayo.jpg)
+}
+
+article.contenedor section.lugar.lugar02 {
+	background-image: url(img/colca.jpg)
+}
+
+article.contenedor section.lugar.lugar03 {
+	background-image: url(img/llanganuco.jpg)
+}
+
+article.contenedor section.lugar.lugar04 {
+	background-image: url(img/machu-picchu.jpg)
+}
+
+article.contenedor section.lugar.lugar05 {
+	background-image: url(img/paracas.jpg)
 }
