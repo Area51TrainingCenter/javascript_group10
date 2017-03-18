@@ -13,10 +13,35 @@ div.contenedor {
 	overflow: hidden;
 }
 
-div.contenedor img.slide {
+div.contenedor .slide {
 	margin:0 15px 15px 15px;
+	opacity:0;
+	transition: all .6s
 }
 
-div.contenedor img.slide.flotar-izq {
+div.contenedor .slide.flotar-izq {
 	float: left;
+	transform: translateX(-30%) scale(.9);
 }
+
+div.contenedor .slide.flotar-der {
+	float: right;
+	transform: translateX(30%) scale(.9);
+}
+
+div.contenedor .slide.activo {
+	transform: translateX(0) translateY(0) scale(1);
+	opacity: 1;
+}
+
+div.contenedor .slide.slideDown {
+	transform: translateY(10%);
+}
+
+
+
+
+
+
+
+
