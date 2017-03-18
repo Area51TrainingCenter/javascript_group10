@@ -1,0 +1,19 @@
+html, body {
+	margin: 0
+}
+
+article.contenedor {
+	min-height: 100vh;
+	background-color: red;
+	display: flex;
+	flex-direction: row;
+}
+
+article.contenedor section.lugar {
+	border: 1px solid green;
+	flex: 1;
+}
+
+article.contenedor section.lugar.lugar01 {
+	background-image: url()
+}
