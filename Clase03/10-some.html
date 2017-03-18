@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+<script>
+	const asistentes = [
+		{nombre: "Alonso Cueva", edad: 30, estatura: 180},
+		{nombre: "Carmen Villanueva", edad: 10, estatura: 130},
+		{nombre: "Camila Cáceres", edad: 23, estatura: 178},
+		{nombre: "Joel Ibañez", edad: 48, estatura: 180},
+		{nombre: "Iván Ronceros", edad: 80, estatura: 185},
+		{nombre: "Pedro Supe", edad: 15, estatura: 170},
+		{nombre: "Javier Sanmartin", edad: 67, estatura: 167},
+		{nombre: "Clarisa Barco", edad: 56, estatura: 172}
+	]
+
+	const hayAncianos = asistentes.some(asistente => asistente.edad>60)
+
+	console.log("¿Hay ancianos?", hayAncianos)
+
+
+</script>
+
+</body>
+</html>

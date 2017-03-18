@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	const obj = new XMLHttpRequest()
+
+	obj.onreadystatechange = function(){
+		if(this.readyState==4 && this.status==200) {
+			const registros = JSON.parse(this.responseText)
+			console.table(registros)
+		}
+	}
+
+	obj.open("get", "http://javascript.tibajodemanda.com/listar", true)
+	obj.send()
+</script>
+
+</body>
+</html>

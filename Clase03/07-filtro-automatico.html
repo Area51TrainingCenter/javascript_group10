@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style>
+		body {
+			background-color: #a0a026;
+		}
+
+		table {
+			width: 550px;
+			margin: 50px auto;
+			padding:20px;
+			font-family: Verdana;
+			font-size:15px;
+			line-height: 21px;
+			border-radius: 10px;
+			background-color: white;
+			box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.3)
+		}
+
+		input {
+			width: 550px;
+			border: 0;
+			outline: none;
+			font-family: Verdana;
+			font-size: 20px;
+			padding: 5px 10px;
+			margin:10px auto;
+			display: block;
+		}
+		button {
+			width: 100%;
+			height: 40px;
+			font-family: Verdana;
+			font-size:20px;
+		}
+
+		form {
+			margin:10px auto;
+			width: 580px;
+			background-color: white;
+			font-family: Verdana;
+			font-size: 20px;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" placeholder="Ingrese su búsqueda" id="busqueda">
+	<table>
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Edad (años)</th>
+				<th>Estatura (cm)</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>Promedio de edad</td>
+				<td colspan="2" id="total"></td>
+			</tr>
+		</tfoot>
+	</table>
+
+	<form>
+		<input type="text" id="nombre" placeholder="Nombre">
+		<input type="number" id="edad" placeholder="Edad">
+		<input type="number" id="estatura" placeholder="Estatura">
+		<button type="button">Ingresar</button>
+	</form>
+
+<script>
+	const asistentes = [
+		{nombre: "Alonso Cueva", edad: 30, estatura: 180},
+		{nombre: "Carmen Villanueva", edad: 10, estatura: 130},
+		{nombre: "Camila Cáceres", edad: 23, estatura: 178},
+		{nombre: "Joel Ibañez", edad: 48, estatura: 180},
+		{nombre: "Iván Ronceros", edad: 80, estatura: 185},
+		{nombre: "Pedro Supe", edad: 15, estatura: 170},
+		{nombre: "Javier Sanmartin", edad: 67, estatura: 167},
+		{nombre: "Clarisa Barco", edad: 56, estatura: 172}
+	]
+
+	const listar = (arr) => 
+		arr.map(item => `
+			<tr>
+				<td>${item.nombre}</td>
+				<td>${item.edad}</td>
+				<td>${item.estatura}</td>
+			</tr>
+		`).join("")
+
+    const tbody = document.querySelector("tbody")
+    const total = document.querySelector("#total")
+    tbody.innerHTML = listar(asistentes)
+
+    const input = document.querySelector("#busqueda")
+
+    input.addEventListener("keyup", function(e){
+    	const filtrado = asistentes.filter(asistente => asistente.nombre.toUpperCase().indexOf(this.value.toUpperCase())>=0)
+
+    	tbody.innerHTML = listar(filtrado)
+
+    	const sumaEdades = filtrado.reduce((suma, item) => {
+    		return suma + item.edad
+    	}, 0)
+
+    	if(filtrado.length>0) {
+    		total.innerHTML = sumaEdades / filtrado.length	
+    	} else {
+    		total.innerHTML = "0"
+    	}
+    	
+
+    })
+
+    const boton = document.querySelector("button")
+    const nombre = document.querySelector("#nombre"),
+    	  edad = document.querySelector("#edad"),
+    	  estatura = document.querySelector("#estatura")
+
+    boton.addEventListener("click", ()=>{
+    	asistentes.push({nombre: nombre.value, edad: edad.value, estatura: estatura.value})
+
+    	tbody.innerHTML = listar(asistentes)
+
+    	nombre.value = ""
+    	edad.value = ""
+    	estatura.value = ""
+    	busqueda.value = ""
+    })
+
+
+
+</script>
+
+</body>
+</html>

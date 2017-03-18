@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+<script>
+	const nombres = ["Sergio", "Ana", "José Luis"]
+
+	// Forma en ES5
+	let miembrosFamilia = nombres.map(function(nombre){
+		return nombre + " Hidalgo"
+	})
+
+	// Forma en ES6
+	miembrosFamilia = nombres.map((nombre) => {
+		return `${nombre} Hidalgo`
+	})
+
+	miembrosFamilia = nombres.map(nombre => {
+		return `${nombre} Hidalgo`
+	})
+
+	miembrosFamilia = nombres.map(nombre => `${nombre} Hidalgo`)
+
+	console.log(miembrosFamilia)
+	console.log(nombres)
+
+</script>
+
+
+</body>
+</html>

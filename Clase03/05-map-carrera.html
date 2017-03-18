@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+<script>
+	const maraton = "RPP 10K"
+
+	const listaGanadores = ["Piero Salgari", "Ana Cornejo", "Carmela Ruiz", "Javier Santiesteban"]
+
+	const listaFormateada = listaGanadores.map((ganador, indice) => 
+		(
+			// {maraton: maraton, ganador: ganador, posicion: indice+1}
+			{maraton, ganador, posicion: indice+1}
+		)
+	)
+
+	// console.log(listaFormateada)
+	console.table(listaFormateada)
+
+</script>
+
+</body>
+</html>
