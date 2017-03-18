@@ -1,0 +1,22 @@
+body {
+	background-color: #a0a026;
+}
+
+div.contenedor {
+	margin:50px auto;
+	width:600px;
+	background-color: white;
+	padding:20px;
+	font-family: Arial;
+	font-size: 15px;
+	line-height: 17px;
+	overflow: hidden;
+}
+
+div.contenedor img.slide {
+	margin:0 15px 15px 15px;
+}
+
+div.contenedor img.slide.flotar-izq {
+	float: left;
+}
