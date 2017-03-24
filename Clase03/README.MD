@@ -1,4 +1,4 @@
-### Eventos "transitionEnd" y "scroll". Uso de filtros dinámicos a través de los métodos filter, map, every y some. Consulta a una base de datos a través de un API REST.
+### Eventos "transitionEnd" y "scroll". Uso de filtros dinámicos a través de los métodos filter, map, every y some. Consulta a una base de datos a través de un API REST
 1. **Eventos:** eventos "click" y "transitionend". Determinar la propiedad que finalizó la transición.
 2. **Lista":** seleccionar múltiples elementos Checkbox utilizando rangos y detección de tecla especial "Shift". 
 3. **Evento "scroll":** detección de desplazamiento en una página web usando el evento "scroll". Ejecución de animaciones dependientes del desplazamiento hecho por el usuario.

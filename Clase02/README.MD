@@ -1,4 +1,4 @@
-### Eventos de carga y cambio del ancho del dispositivo. Propiedades de Screen, Page, Client, offsetHeight, offsetWidth, offsetTop, offsetLeft. Uso de animaciones.
+### Eventos de carga y cambio del ancho del dispositivo. Propiedades de Screen, Page, Client, offsetHeight, offsetWidth, offsetTop, offsetLeft. Uso de animaciones
 1. **Eventos:** diferencia entre eventos "load" y "DOMContentLoaded".
 2. **Juego "Embocar":** creando un juego para móviles usando los métodos "OrientationChange" y "DeviceMotion". 
 3. **Evento "resize":** cómo se dispara.
