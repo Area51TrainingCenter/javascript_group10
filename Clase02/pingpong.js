@@ -165,12 +165,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 	cargarSonidos()
 
 	ftnAnimacion(mover)
-
-
-
-
-
-
-
-
 })
