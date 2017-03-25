@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	const ajax = (url, metodo, data, resolve, reject)=>{
+		const objxml = new XMLHttpRequest()
+		objxml.onreadystatechange = function(){
+			if(this.readyState==4 && this.status==200) {
+				const registros = JSON.parse(this.responseText)
+
+				resolve(registros)
+			} 
+		}
+
+		objxml.onerror = function(){
+			console.log(this.statusText)
+		}
+
+		objxml.open(metodo, url, true)
+
+
+		if(metodo=="post" && data.length>0) {
+			const formData = new FormData()
+
+			data.forEach(item => {
+				formData.append(item.nombre, item.valor)
+			})
+
+			objxml.send(formData)
+		} else {
+			objxml.send()
+		}
+	}
+
+	const promesa = new Promise(
+		(resolve, reject) => {
+			const data = [
+				{nombre: "nombre", valor: "Marcos"},
+				{nombre: "apellido", valor:"Alonso"}
+			]
+
+			ajax("http://javascript.tibajodemanda.com/insertar", "post", data, resolve, reject)
+		}
+	)
+
+	promesa
+		.then(
+			registros => {
+				console.table(registros)
+			},
+			error => {
+				console.log(error)
+			}
+		)
+</script>
+
+</body>
+</html>
