@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<script>
+	function calcularBoletaVenta(costoBasico, igv = 0.19, propina = 0.05) {
+		const total = costoBasico + costoBasico*igv + costoBasico*propina
+
+		return total
+	}
+
+	console.log(calcularBoletaVenta(200, 0.18, 0.05))
+
+	console.log(calcularBoletaVenta(300))
+
+	console.log(calcularBoletaVenta(400, 0.15))
+
+	// Si un parámetro no se envía, colocar "undefined"
+	console.log(calcularBoletaVenta(240, undefined, 0.8))
+
+</script>
+</body>
+</html>

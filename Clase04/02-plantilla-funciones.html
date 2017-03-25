@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Ruta</th>
+				<th>Componente</th>
+				<th>Exactitud</th>
+				<th>Comentario</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+
+<script>
+	const tbody = document.querySelector("tbody")
+
+	const rutas = [
+		{path: "", componente: "HomeComponente", pathMatch:"full"},
+		{path: "listado", componente: "ListadoComponente"},
+		{path: "edicion/:id", componente: "EdicionComponente"},
+		{path: "insercion", componente: "InsercionComponente"},
+		{path: "**", componente: "HomeComponente"}
+	];
+
+	const comentar = item => {
+		return `
+			<h3>La ruta ${item.path} inserta el componente ${item.componente}. Esta ruta tiene exactitud = ${item.pathMatch}`
+	}
+
+	const lineas = rutas
+					.map( item => {
+						return `
+							<tr>
+								<td>${item.path}</td>
+								<td>${item.componente}</td>
+								<td>${ !item.pathMatch ? "" : item.pathMatch}</td>
+								<td>${comentar(item)}</td>
+							</tr>
+						`
+					})
+					.join("")
+
+	tbody.innerHTML = lineas;
+
+
+
+</script>
+
+</body>
+</html>

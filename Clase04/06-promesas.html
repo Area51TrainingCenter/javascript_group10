@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script>
+		const promesa = new Promise(
+			(resolve, reject) => {
+				setTimeout(()=> {
+					resolve("la promesa se cumplió")
+					// reject("la promesa no se cumplió")
+				},4000)
+			}
+		)
+
+		promesa
+			.then(
+				(msg) => {
+					console.log(msg)
+
+					return new Promise(
+						(resolve, reject) => {
+							setTimeout(()=>{
+								resolve()
+							}, 3000)
+						}
+					)
+				},  //La primera función se ejecuta cuando se cumple la promesa
+				(errorMsg) => {
+					console.log(errorMsg)
+				}   //La segunda función se ejecuta cuando se rechaza la promesa
+			)
+			.then(
+				()=>{console.log("Segunda promesa cumplida")},
+				()=>{}
+			)
+	</script>
+
+</body>
+</html>

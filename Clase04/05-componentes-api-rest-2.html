@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style>
+		article {
+			position: relative;
+			border-bottom: 1px solid #000;
+			float:left;
+			left: 0px;
+			width: 100%
+
+		}
+		article.desaparecer {
+			animation: ocultar 700ms forwards;
+		}
+
+		@keyframes ocultar {
+			to {
+				left: 150%;
+			}
+		}
+
+		a {
+			display: block;
+			font-family: Arial;
+			font-size: 20px;
+			padding: 10px;
+			position: absolute;
+			right: 5px;
+			bottom: 5px;
+		}
+
+		.panel-body {
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">	
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h1>Listado de Personas</h1>
+				</div>
+				<div class="panel-body">
+			<form>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Nombre" id="nombre">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Apellido" id="apellido">
+				</div>
+				<div class="form-group">
+					<input type="range" min="10" max="100" class="form-control" placeholder="Edad" id="edad">
+				</div>
+				<div class="form-group">
+					<input type="button" class="claBoton" id="btnInsertar" value="Insertar">
+				</div>
+			</form>	
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+<script>
+	const selector = document.querySelector("div.panel-body")
+
+	const formularioComponente = function(){
+		return `
+
+		`
+	}
+
+	const personaComponente = function(persona) {
+		return `
+			<h2>${persona.nombre} ${persona.apellido}</h2>
+			<h5>Edad: ${persona.edad} años</h5>
+			<a href="#" data-id="${persona.id}" class="btn btn-danger">X</a>
+		`
+	}
+
+	const listadoComponente = function(persona) {
+		return `
+			 <article data-id="${persona.id}">${personaComponente(persona)}</article>
+			`
+	}
+
+	const baseComponente = function(personas) {
+		return personas
+				.map(persona => {
+					return `
+						${listadoComponente(persona)}
+					`
+				})
+				.join("")
+	}
+
+    selector.innerHTML = formularioComponente()
+
+	const objxml = new XMLHttpRequest()
+
+	objxml.onreadystatechange = function(){
+		if(this.readyState==4 && this.status==200) {
+			const registros = JSON.parse(this.responseText)
+			console.table(registros)
+
+			selector.innerHTML += baseComponente(registros)
+
+			const listaX = document.querySelectorAll("a")
+			listaX.forEach(function(elemento){
+				elemento.addEventListener("click", function(evt) {
+					evt.preventDefault()
+
+					const id = this.getAttribute("data-id")
+					const article = document.querySelector(`article[data-id='${id}']`)
+					article.classList.add("desaparecer")
+					article.addEventListener("animationend", function(){
+						this.style.display = "none"
+					})
+					// article.style.display = "none"
+
+				})
+			})
+
+		}
+	}
+
+	objxml.onerror = function(){
+		console.log(this.statusText)
+	}
+
+	objxml.open("get", "http://javascript.tibajodemanda.com/listar", true)
+	objxml.send()
+
+	const nombre = document.getElementById("nombre")
+	const apellido = document.getElementById("apellido")
+	const edad = document.getElementById("edad")
+
+	const btnInsertar = document.querySelector(".claBoton")
+	btnInsertar.addEventListener("click", function(e){
+		e.preventDefault()
+		const objInsertar = XMLHttpRequest()
+
+		objInsertar.onreadystatechange = function(){
+
+		}
+
+		objInsertar.onerror = function(){
+			console.log(this.statusText)
+		}
+
+		objInsertar.open("post", "http://javascript.tibajodemanda.com/insertar", true)
+
+		const datos = new FormData()
+		datos.append("nombres", nombre.value)
+		datos.append("apellidos", apellido.value)
+		datos.append("edad", edad.value)
+
+		objInsertar.send(datos)
+
+	})
+	console.log(btnInsertar)
+
+
+
+
+</script>
+
+</body>
+</html>

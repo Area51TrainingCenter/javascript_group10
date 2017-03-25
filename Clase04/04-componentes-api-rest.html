@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+	</tbody>
+</table>
+
+<script>
+	const selector = document.querySelector("tbody")
+
+/*	const listaPersonas = [
+		{id: 1, nombre: "Sergio", apellido: "Hidalgo"},
+		{id: 2, nombre: "Ana", apellido: "Bendezu"},
+		{id: 3, nombre: "Herminio", apellido: "Tazza"},
+		{id: 4, nombre: "Martin", apellido: "Peña"},
+		{id: 5, nombre: "Cynthia", apellido: "Arrué"}
+	]*/
+
+	const personaComponente = function(persona) {
+		return `
+			<td>${persona.id}</td>
+			<td>${persona.nombre}</td>
+			<td>${persona.apellido}</td>
+		`
+	}
+
+	const listadoComponente = function(persona) {
+		return `
+			 <tr>${personaComponente(persona)}</tr>
+			`
+	}
+
+	const baseComponente = function(personas) {
+		return personas
+				.map(persona => {
+					return `
+						${listadoComponente(persona)}
+					`
+				})
+				.join("")
+	}
+
+	// selector.innerHTML = baseComponente(listaPersonas)
+
+	const objxml = new XMLHttpRequest()
+
+	objxml.onreadystatechange = function(){
+		if(this.readyState==4 && this.status==200) {
+			const registros = JSON.parse(this.responseText)
+			console.table(registros)
+
+			selector.innerHTML = baseComponente(registros)
+		}
+	}
+
+	objxml.onerror = function(){
+		console.log(this.statusText)
+	}
+
+	objxml.open("get", "http://javascript.tibajodemanda.com/listar", true)
+
+	objxml.send()
+
+
+
+
+</script>
+
+</body>
+</html>
