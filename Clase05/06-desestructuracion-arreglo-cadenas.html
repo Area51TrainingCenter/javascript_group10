@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	const almacenarInfo = function(origen, destino, horaE, fechaE, horaL, fechaL, ticket,otros){
+		if(otros.length>0) {
+			console.log(otros)	
+		}
+		
+
+	}
+
+	const lineas = [
+		"LIMARQ0900201704011000201704013324",
+		"TRUCUS1010201704011200201704012356LPZ11002O1704024567"
+	]
+
+	const datos = []
+
+	let linea = lineas[0]
+	let arr = []
+
+	arr.push(linea.substr(0,3))//origen
+	arr.push(linea.substr(3,3))//destino
+	arr.push(linea.substr(6,4))//hora de embarque
+	arr.push(linea.substr(10,8))//fecha de embarque
+	arr.push(linea.substr(18,4))//hora de llegada
+	arr.push(linea.substr(22,8))//fecha de llegada
+	arr.push(linea.substr(30,4))//ticket
+
+	datos.push(arr)
+
+
+	linea = lineas[1]
+	arr = []
+
+	arr.push(linea.substr(0,3))//origen
+	arr.push(linea.substr(3,3))//destino
+	arr.push(linea.substr(6,4))//hora de embarque
+	arr.push(linea.substr(10,8))//fecha de embarque
+	arr.push(linea.substr(18,4))//hora de llegada
+	arr.push(linea.substr(22,8))//fecha de llegada
+	arr.push(linea.substr(30,4))//ticket
+	arr.push(linea.substr(34,3))//destino final
+	arr.push(linea.substr(37,4))//hora de destino final
+	arr.push(linea.substr(41,8))//fecha de destino final
+
+	datos.push(arr)
+
+	datos.forEach(item => {
+		const [origen, destino, horaE, fechaE, horaL, fechaL, ticket, ...otrosElementos] = item
+
+		almacenarInfo(origen, destino, horaE, fechaE, horaL, fechaL, ticket, otrosElementos)
+/*		const [origen, destino, horaE, fechaE, horaL, fechaL, ticket, destinoF, horaD, fechaD] = item
+
+		almacenarInfo(origen, destino, horaE, fechaE, horaL, fechaL, ticket, destinoF, horaD, fechaD)*/
+	})
+
+
+
+</script>
+
+</body>
+</html>

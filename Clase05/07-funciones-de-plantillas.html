@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+
+	const editable = function(textos, ...valores) {
+		let cadena = ""
+
+		textos.forEach((txt, ind) => {
+			cadena += txt
+			if(ind<valores.length) {
+				cadena += `<span contenteditable>${valores[ind]}</span>`
+			}
+		})
+
+		return cadena
+	}
+
+	const titular = "Emergencia en el Perú"
+	const resumen = "En todo el Perú se presentan lluvias intensas y en algunos casos con huaycos y desbordes de ríos"
+
+	const noticia = editable`
+		<h1>${titular}</h1>
+		<p>${resumen}</p>
+	`
+
+	document.body.innerHTML = noticia
+
+</script>
+
+</body>
+</html>

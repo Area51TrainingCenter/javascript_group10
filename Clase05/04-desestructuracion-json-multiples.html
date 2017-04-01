@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Redes</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+
+</table>
+<script>
+
+const tbody = document.querySelector("tbody")
+	
+const personas = [
+	{
+		nombre: "Sergio", 
+		apellido: "Hidalgo", 
+		redes: {
+			facebook: "http://facebook.com",
+			twitter: "http://twitter.com",
+			linkedin: "http://linkedin"
+		}
+	},
+	{
+		nombre: "Javier", 
+		apellido: "Camargo", 
+		redes: {
+			facebook: "http://facebook.com",
+			twitter: "http://twitter.com",
+			linkedin: "http://linkedin",
+			instagram: "http://instagram.com"
+		}
+	},
+	{
+		nombre: "Mariela", 
+		apellido: "Díaz", 
+		redes: {
+			twitter: "http://twitter.com",
+			linkedin: "http://linkedin"
+		}
+	}
+]
+
+const mostrarRedes = redes => {
+	const {facebook="no tiene facebook", twitter="no tiene twitter", linkedin="no tiene linkedin", instagram="no tiene instagram"} = redes
+
+	return `
+		facebook: ${facebook}<br>
+		twitter: ${twitter}<br>
+		linkedin: ${linkedin}<br>
+		instagram: ${instagram}<br>
+	`
+}
+
+const lista = personas.map(item => {
+	return `
+		<tr>
+			<td>${item.nombre}</td>
+			<td>${item.apellido}</td>
+			<td>${mostrarRedes(item.redes)}</td>
+		</tr>
+	`
+}).join("")
+
+tbody.innerHTML = lista
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

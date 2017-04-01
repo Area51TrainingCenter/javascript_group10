@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+// Se instancia la clase XMLHttpRequest
+const obj = new XMLHttpRequest()
+
+obj.onreadystatechange = function() {
+	// readyState: 4 cuando la requisión fue respondida
+	// status: 200 significa que no hubo ningún problema
+	if(this.readyState==4 && this.status==200) {
+		const registro = JSON.parse(this.responseText)
+		console.log(registro)
+	}
+}
+
+// Aquí manejamos las excepciones
+obj.onerror = function(err) {
+	console.log(err)
+}
+
+// Aquí preparamos la conexión
+obj.open("post", "http://javascript.tibajodemanda.com/insertar", true)
+
+const formData = new FormData()
+formData.append("nombre", "Herminio")
+formData.append("apellido", "Tazza")
+
+// Aquí empezamos el proceso
+obj.send(formData)
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

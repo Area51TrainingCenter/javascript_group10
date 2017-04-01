@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombres</th>
+			<th>Apellidos</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+	</tbody>
+</table>
+
+<script>
+const tbody = document.querySelector("tbody")
+
+// Se instancia la clase XMLHttpRequest
+const obj = new XMLHttpRequest()
+
+obj.onreadystatechange = function() {
+	// readyState: 4 cuando la requisión fue respondida
+	// status: 200 significa que no hubo ningún problema
+	if(this.readyState==4 && this.status==200) {
+		const registros = JSON.parse(this.responseText)
+		console.table(registros)
+
+		const filas = registros.map( item => {
+			return `
+					<tr>
+						<td>${item.id}</td>
+						<td>${item.nombre}</td>
+						<td>${item.apellido}</td>
+					</tr>
+			`
+		}).join("")
+
+		tbody.innerHTML = filas
+	}
+}
+
+// Aquí manejamos las excepciones
+obj.onerror = function(err) {
+	console.log(err)
+}
+
+// Aquí preparamos la conexión
+obj.open("get", "http://javascript.tibajodemanda.com/listar", true)
+
+// Aquí empezamos el proceso
+obj.send()
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
