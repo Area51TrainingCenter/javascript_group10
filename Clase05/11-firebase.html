@@ -102,6 +102,17 @@
 		pnlRegistro.style.display = "none"
 		pnlLogin.style.display = "block"
 	})
+
+	btnLogin.addEventListener("click", e => {
+		e.preventDefault()
+
+		firebase
+			.auth()
+			.signInWithEmailAndPassword(iCorreoLogin.value, iContrasenaLogin.value)
+			.then(msg => {
+				console.log("Usuario autenticado")
+			})
+	})
 	
 </script>
 
