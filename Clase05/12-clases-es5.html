@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	function Animal(clima, tipo) {
+		this.clima = clima
+		this.tipo = tipo
+	}
+
+	Animal.prototype.info = function(){
+		return "Animal " + this.tipo + " de clima "+this.clima 
+	}
+
+	function Conejo(raza, clima, tipo){
+		Animal.call(this, clima, tipo)
+		this.raza = raza
+	}
+
+	Conejo.prototype = Object.create(Animal.prototype)
+	Conejo.prototype.constructor = Conejo
+
+	const conejo = new Conejo("andina", "seco", "mamífero")
+	console.log(conejo.raza)
+	console.log(conejo.info())
+/*	const animal = new Animal("frio", "mamífero")
+
+	console.log("Clima", animal.clima)
+	console.log("Tipo", animal.tipo)
+	console.log(animal.info())*/
+
+
+</script>
+
+</body>
+</html>
