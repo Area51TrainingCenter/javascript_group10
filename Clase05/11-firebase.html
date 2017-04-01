@@ -87,6 +87,7 @@
 									<th>Nombre</th>
 									<th>Apellido</th>
 									<th>Posición</th>
+									<th>Acción</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -135,6 +136,32 @@
 
 	const bd = firebase.database().ref("/jugadores")
 
+	const eliminarItem = function(e){
+		const id = this.getAttribute("data-id")
+
+		if(confirm("¿Quieres eliminar?")){
+			bd
+				.child(id)
+				.remove()
+		}
+	}
+
+	const editarItem = function(e){
+		const id = this.getAttribute("data-id")
+
+		const nombre = prompt("Ingrese el nombre")
+			  apellido = prompt("Ingrese el apellido")
+			  posicion = prompt("Ingrese la posición")
+
+		bd
+			.child(id)
+			.update({
+				nombre,
+				apellido,
+				posicion
+			})
+	}
+
 	bd.on("value", jugadores => {
 		const lista = jugadores.val()
 
@@ -145,11 +172,28 @@
 				   <td>${lista[item].nombre}</td>
 				   <td>${lista[item].apellido}</td>
 				   <td>${lista[item].posicion}</td>
+				   <td>
+				   	  <a href="#" class="editar btn btn-success glyphicon glyphicon-remove" data-id="${item}">Editar</a>&nbsp;
+				      <a href="#" class="eliminar btn btn-danger glyphicon glyphicon-remove" data-id="${item}">Eliminar</a>
+				   </td>
 				</tr>
 			`
 		}
 
 		tbody.innerHTML = filas
+
+		const botonesEliminar = document.querySelectorAll(".eliminar")
+		const botonesEditar = document.querySelectorAll(".editar")
+
+		botonesEliminar.forEach(item => {
+			item.addEventListener("click", eliminarItem)
+		})
+
+		botonesEditar.forEach(item => {
+			item.addEventListener("click", editarItem)
+		})
+
+
 
 	})
 
