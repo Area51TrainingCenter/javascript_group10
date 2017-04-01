@@ -10,7 +10,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="panel panel-success">
+				<div class="panel panel-success" id="pnlRegistro">
 					<div class="panel-heading">
 						<h1>Registro</h1>
 					</div>
@@ -25,13 +25,32 @@
 
 							<div class="form-group">
 								<a href="#" id="btnRegistrar" class="btn btn-success">Ingresar</a>
+								&nbsp;
+								<a href="#" id="btnIrALogin" class="btn btn-danger">Ir a Login</a>
 							</div>
 						</form>
 					</div>
 				</div>
 
+				<div class="panel panel-warning" id="pnlLogin" style="display:none">
+					<div class="panel-heading">
+						<h1>Login</h1>
+					</div>
+					<div class="panel-body">
+						<form>
+							<div class="form-group">
+								<input type="text" name="correoLogin" id="correoLogin" placeholder="Ingrese un correo" class="form-control">
+							</div>
+							<div class="form-group">
+								<input type="password" name="contrasenaLogin" id="contrasenaLogin" placeholder="Ingrese una contraseña" class="form-control">
+							</div>
 
-
+							<div class="form-group">
+								<a href="#" id="btnLogin" class="btn btn-success">Ingresar</a>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -54,8 +73,14 @@
 
 <script>
 	const btnRegistrar = document.querySelector("#btnRegistrar"),
+		  btnIrALogin = document.querySelector("#btnIrALogin"),
+		  btnLogin = document.querySelector("#btnLogin"),
 		  iCorreo = document.querySelector("#correo"),
-		  iContrasena = document.querySelector("#contrasena")
+		  iContrasena = document.querySelector("#contrasena"),
+		  iCorreoLogin = document.querySelector("#correoLogin"),
+		  iContrasenaLogin = document.querySelector("#contrasenaLogin"),
+		  pnlRegistro = document.querySelector("#pnlRegistro"),
+		  pnlLogin = document.querySelector("#pnlLogin")
 
 	btnRegistrar.addEventListener("click", e => {
 		e.preventDefault()
@@ -69,6 +94,13 @@
 			.catch(error => {
 				console.log(error)
 			})
+	})
+
+	btnIrALogin.addEventListener("click", e => {
+		e.preventDefault()
+
+		pnlRegistro.style.display = "none"
+		pnlLogin.style.display = "block"
 	})
 	
 </script>
