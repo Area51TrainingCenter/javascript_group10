@@ -51,6 +51,15 @@
 						</form>
 					</div>
 				</div>
+
+				<div class="panel panel-info" id="pnlBienvenido" style="display:none">
+					<div class="panel-heading">
+						<h1>Bienvenido</h1>
+					</div>
+					<div class="panel-body">
+					<a href="#" id="btnLogout" class="btn btn-success">Salir</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -75,6 +84,7 @@
 	const btnRegistrar = document.querySelector("#btnRegistrar"),
 		  btnIrALogin = document.querySelector("#btnIrALogin"),
 		  btnLogin = document.querySelector("#btnLogin"),
+		  btnLogout = document.querySelector("#btnLogout"),
 		  iCorreo = document.querySelector("#correo"),
 		  iContrasena = document.querySelector("#contrasena"),
 		  iCorreoLogin = document.querySelector("#correoLogin"),
@@ -113,6 +123,26 @@
 				console.log("Usuario autenticado")
 			})
 	})
+
+	btnLogout.addEventListener("click", e => {
+		firebase
+			.auth()
+			.signOut()
+	})
+
+	firebase
+		.auth()
+		.onAuthStateChanged(usuario => {
+			if(usuario) {
+				pnlRegistro.style.display = "none"
+				pnlLogin.style.display = "none"
+				pnlBienvenido.style.display = "block"				
+			} else {
+				pnlRegistro.style.display = "block"
+				pnlLogin.style.display = "none"
+				pnlBienvenido.style.display = "none"			
+			}
+		})
 	
 </script>
 
