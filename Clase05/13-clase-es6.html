@@ -6,25 +6,30 @@
 <body>
 
 <script>
+	// Definición de la clase Animal
 	class Animal {
+		// Constructor de la clase Animal
 		constructor(clima, tipo){
 			this.clima = clima
 			this.tipo = tipo
 		}
 
+		// Definición de un método
 		info() {
 			return `Animal ${this.tipo} de clima ${this.clima}` 
 		}
 	}
 
+	// Definición de la clase Conejo. Herencia de la clase Animal.
 	class Conejo extends Animal {
 		constructor(raza, clima, tipo) {
+			// Llamada al constructor de la clase heredada: Animal
 			super(clima, tipo)
 			this.raza = raza
 		}
 	}
 
-
+	// Instancia de la clase Conejo
 	const conejo = new Conejo("andina", "seco", "mamífero")
 	console.log(conejo.raza)
 	console.log(conejo.info())

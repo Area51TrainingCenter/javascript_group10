@@ -6,26 +6,34 @@
 <body>
 
 <script>
+	// Definiendo la clase Animal. Constructor
 	function Animal(clima, tipo) {
 		this.clima = clima
 		this.tipo = tipo
 	}
 
+	// Agregando un método a la clase Animal
 	Animal.prototype.info = function(){
 		return "Animal " + this.tipo + " de clima "+this.clima 
 	}
 
+	// Definiendo la clase Conejo. Constructor
 	function Conejo(raza, clima, tipo){
+		// Llamada al constructor de la clase Animal
 		Animal.call(this, clima, tipo)
 		this.raza = raza
 	}
 
+	// Heredando los métodos y propiedades de la clase Animal en la clase Conejo
 	Conejo.prototype = Object.create(Animal.prototype)
+	// Hay que indicar que la clase Conejo usará su propio constructor.
 	Conejo.prototype.constructor = Conejo
 
+	// Instancia de la clase Conejo: Objecto
 	const conejo = new Conejo("andina", "seco", "mamífero")
 	console.log(conejo.raza)
 	console.log(conejo.info())
+
 /*	const animal = new Animal("frio", "mamífero")
 
 	console.log("Clima", animal.clima)

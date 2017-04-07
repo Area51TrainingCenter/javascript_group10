@@ -29,6 +29,7 @@
 		{id: 5, nombre: "Cynthia", apellido: "Arrué"}
 	]
 
+	// Declaración y definición de componentes. Los componentes son funciones.
 	const personaComponente = function(persona) {
 		return `
 			<td>${persona.id}</td>
@@ -53,6 +54,7 @@
 				.join("")
 	}
 
+	// baseComponente es la función principal. La cual es ejecutada en un inicio
 	selector.innerHTML = baseComponente(listaPersonas)
 
 

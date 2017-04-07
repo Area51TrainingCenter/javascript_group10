@@ -103,9 +103,9 @@
 
 <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
 <script>
-  // Initialize Firebase
+  // Inicialización Firebase
   var config = {
-    apiKey: "AIzaSyB3qrDLK0MH9pSPmJd1DOIskD3BobCq_2E",
+    apiKey: "<<AQUÍ VA EL API KEY DE FIREBASE>>",
     authDomain: "jugadores-9a99e.firebaseapp.com",
     databaseURL: "https://jugadores-9a99e.firebaseio.com",
     projectId: "jugadores-9a99e",
@@ -117,6 +117,7 @@
 
 
 <script>
+	// Declaración y definición de los elementos html
 	const btnRegistrar = document.querySelector("#btnRegistrar"),
 		  btnIrALogin = document.querySelector("#btnIrALogin"),
 		  btnLogin = document.querySelector("#btnLogin"),
@@ -134,18 +135,22 @@
 		  sUsuarioCorreo = document.querySelector("#usuarioCorreo"),
 		  tbody = document.querySelector("tbody")
 
+	// Creando un enlace a la colección "jugadores"
 	const bd = firebase.database().ref("/jugadores")
 
+	// Función para eliminar un registro
 	const eliminarItem = function(e){
 		const id = this.getAttribute("data-id")
 
 		if(confirm("¿Quieres eliminar?")){
+			// El "child" es el equivalente del "where"
 			bd
 				.child(id)
 				.remove()
 		}
 	}
 
+	// Función para editar un registro
 	const editarItem = function(e){
 		const id = this.getAttribute("data-id")
 
@@ -162,6 +167,8 @@
 			})
 	}
 
+	// El evento "value" está monitoreando los cambios que hay en la colección "jugadores".
+	// Cualquier cambio es reflejado automáticamente.
 	bd.on("value", jugadores => {
 		const lista = jugadores.val()
 
@@ -192,13 +199,10 @@
 		botonesEditar.forEach(item => {
 			item.addEventListener("click", editarItem)
 		})
-
-
-
 	})
 
 
-
+	// Evento que crea un usuario de la app de Firebase
 	btnRegistrar.addEventListener("click", e => {
 		e.preventDefault()
 
@@ -213,6 +217,7 @@
 			})
 	})
 
+	// Evento que oculta el registro y muestra el login
 	btnIrALogin.addEventListener("click", e => {
 		e.preventDefault()
 
@@ -220,6 +225,7 @@
 		pnlLogin.style.display = "block"
 	})
 
+	// Evento para loguearse en la app
 	btnLogin.addEventListener("click", e => {
 		e.preventDefault()
 
@@ -231,12 +237,14 @@
 			})
 	})
 
+	// Evento para desloguearse
 	btnLogout.addEventListener("click", e => {
 		firebase
 			.auth()
 			.signOut()
 	})
 
+	// Evento para agregar un registro a la colección "jugadores"
 	btnIngresar.addEventListener("click", e => {
 		e.preventDefault()
 
@@ -249,6 +257,7 @@
 		bd.push().set(datos)
 	})
 
+	// Evento propio de firebase que monitorea el estado de un usuario: logueado y no logueado
 	firebase
 		.auth()
 		.onAuthStateChanged(usuario => {
