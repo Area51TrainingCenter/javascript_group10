@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<img id="imagen">
+
+<script>
+	const imagen = document.querySelector("#imagen")
+	const socket = io()
+
+	socket.on("enviando streaming", img => {
+		imagen.src = img
+	})
+
+</script>
+
+</body>
+</html>

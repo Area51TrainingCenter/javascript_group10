@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<video id="video"></video>
+	<canvas id="canvas" width="640" height="480"></canvas>
+	<img src="" id="imagen">
+	<button>Capturar</button>
+	<script>
+		const video = document.querySelector("#video")
+		const canvas = document.querySelector("#canvas")
+		const contexto = canvas.getContext("2d")
+		const btn = document.querySelector("button")
+		const img = document.querySelector("#imagen")
+
+		navigator.streaming = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
+
+		const ftnAnimacion = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame || function(cb){
+				return setTimeout(f, 1000/60)
+			}
+
+
+
+
+		navigator
+			.streaming(
+			  {video: true},
+			  stream => {
+			  	video.style.display = "none"
+			  	video.src = window.URL.createObjectURL(stream)
+			  	video.play()
+			  },
+			  error => {
+			  	console.log(error)
+			  }
+			)
+
+	   btn.addEventListener("click", function(){
+	   	   img.src = canvas.toDataURL("image/jpeg", 0.4)
+	   })
+
+	   const ftnDeVideoACanvas = function(){
+	   		contexto.drawImage(video, 0, 0, 640, 480)
+
+	   		ftnAnimacion(ftnDeVideoACanvas)
+	   }
+
+	   ftnAnimacion(ftnDeVideoACanvas)
+
+
+
+
+
+
+
+	</script>
+
+</body>
+</html>
