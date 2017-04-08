@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	fetch("http://javascript.tibajodemanda.com/listar", {
+		method: "get"
+	})
+	.then(respuesta => {
+		// console.log(respuesta)
+		return respuesta.json()
+	})
+	.then(registros => {
+		console.table(registros)
+	})
+	.catch(error=>{
+		console.log(error)
+	})
+
+</script>
+
+</body>
+</html>

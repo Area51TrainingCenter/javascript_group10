@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	// Los yields son como "paradas" dentro del código
+	function* generadorFetch(){
+		fetch("http://javascript.tibajodemanda.com/listar", {
+			method: "get"
+		})
+		.then(respuesta => {
+			// console.log(respuesta)
+			return respuesta.json()
+		})
+		.then(registros => {
+			api.next()
+			console.table(registros)
+		})
+		.catch(error=>{
+			console.log(error)
+		})
+		yield "Listado"
+
+		const datos = new FormData()
+		datos.append("nombre", "Herminio")
+		datos.append("apellido", "Veliz")
+		datos.append("edad", 98)
+
+		fetch("http://javascript.tibajodemanda.com/insertar", {
+			method: "post",
+			body: datos
+		})
+		.then(respuesta => {
+			// console.log(respuesta)
+			return respuesta.json()
+		})
+		.then(registros => {
+			// api.next()
+			console.table(registros)
+		})
+		.catch(error=>{
+			console.log(error)
+		})
+
+		// yield "insertar"
+
+	}
+
+	const api = generadorFetch()
+
+	// Siempre hay que dar el primer paso. Los generadores no empiezan sin alguien o algo que los impulse al primer paso.
+	api.next()
+
+
+</script>
+
+</body>
+</html>

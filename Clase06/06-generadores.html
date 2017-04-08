@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	// Los generadores se declaran con un * a continuación de "function" 
+	function* generador(){
+		console.log("ejecutando")
+		yield "primera parada" //yield indica una parada
+	}
+
+	const ref = generador()
+
+	ref.next() //con next avanzamos hasta el yield
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+
+	class Animal {
+
+		constructor(raza){
+			this.raza = raza
+		}
+
+		info(){
+			alert(`Raza: ${this.raza}`)
+		}
+	}
+
+	class Mamifero extends Animal {
+		constructor(raza, continente, genero){
+			super(raza)
+			this.continente = continente
+			this.genero = genero
+		}
+
+		info(){
+			alert(`Raza: ${this.raza}, Continente: ${this.continente}, Genero: ${this.genero}`)
+		}
+	}
+
+	const mamifero = new Mamifero("Lobo Estepario", "Asia", "Hembra")
+	mamifero.info()
+</script>
+
+</body>
+</html>

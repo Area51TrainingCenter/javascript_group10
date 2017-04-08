@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	const datos = new FormData()
+	datos.append("nombre", "Herminio")
+	datos.append("apellido", "Tazza")
+	datos.append("edad", 98)
+
+
+	fetch("http://javascript.tibajodemanda.com/insertar", {
+		method: "post",
+		body: datos
+	})
+	.then(respuesta => {
+		// console.log(respuesta)
+		return respuesta.json()
+	})
+	.then(registros => {
+		console.table(registros)
+	})
+	.catch(error=>{
+		console.log(error)
+	})
+
+</script>
+
+</body>
+</html>

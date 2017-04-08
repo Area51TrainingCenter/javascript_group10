@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="js/lib/require.js" data-main="js/main"></script>
+</head>
+<body>
+
+<script>
+// Primero tiene que cargar el archivo main.js
+// Este archivo contiene la configuración del require.js
+requirejs(["main"], function(){
+	//console.log("main ha cargado")
+	requirejs(["pag/archivo"], function(met) {
+		met.saludo("Sergio")
+	})
+})
+</script>
+
+</body>
+</html>
