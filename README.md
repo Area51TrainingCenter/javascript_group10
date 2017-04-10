@@ -6,3 +6,4 @@
 3. [Eventos "transitionEnd" y "scroll". Uso de filtros dinámicos a través de los métodos filter, map, every y some. Consulta a una base de datos a través de un API REST](https://github.com/Area51TrainingCenter/javascript_group10/tree/master/Clase03)
 4. [Funciones y plantillas de funciones. Componentes: definición y uso con API REST. Promesas: definición y uso con API REST y componentes](https://github.com/Area51TrainingCenter/javascript_group10/tree/master/Clase04)
 5. [Desestructuración con JSON y Array. Funciones de plantilla de texto. Uso de spreads y literales. Uso de for .. in, for .. of. Creando una app con Firebase. Clases en ES5 y ES6](https://github.com/Area51TrainingCenter/javascript_group10/tree/master/Clase05)
+6. [Definición y uso de require, fetch, generadores y clases. Ejemplo de streaming de imágenes](https://github.com/Area51TrainingCenter/javascript_group10/tree/master/Clase06)
