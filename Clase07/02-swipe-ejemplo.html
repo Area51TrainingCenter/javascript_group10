@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+	<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+			margin:0;
+			padding: 0
+		}
+		div.contenedor {
+			position: relative;
+			width: 200px;
+			height: 200px;
+			margin: 40px auto;
+		}
+
+		div.contenedor img {
+			position: absolute;
+			z-index: 1;
+			top: 0;
+			left: 0;
+			width: 200px;
+			height: 200px;
+			display: block;
+			transition: all .300s linear;
+			border: 1px solid black;
+			box-sizing: border-box;
+			pointer-events: none
+		}
+
+		div.contenedor img.img01 {
+			transform: translateX(-220px);
+			opacity: 0
+		}
+
+		}
+		div.contenedor img.img02 {
+			transform: translateX(0px) scale(1.3);
+			z-index: 2;
+			box-shadow: 4px 4px 8px black
+		}
+
+		div.contenedor img.img03 {
+			transform: translateX(220px);
+			opacity: 0
+		}	
+
+		main {
+			width: 100%;
+			height: 100%;
+			background-color: red;
+		}
+
+
+	</style>
+</head>
+<body>
+	<main>
+		<div class="contenedor">
+			<img src="img/imagen01.jpg">
+			<img src="img/imagen02.jpg">
+			<img src="img/imagen03.jpg">
+		</div>
+	</main>
+
+	<script>
+		window.addEventListener("load", () => {
+			const article = document.querySelector("main")
+			const umbralDesp = 100
+			const umbralTiempo = 400
+
+			let direccion = ""
+			let inicioX, inicioY
+			let distanciaX, distanciaY
+			let tiempoInicio, tiempoTranscurrido
+
+			const clases = ["img01", "img02", "img03"]
+			const imagenes = document.querySelectorAll("img")
+
+			const asignarClases = () => {
+				imagenes.forEach((item, indice) => {
+					item.classList.add(clases[indice])
+				})
+			}
+
+			const moverClases = direccion => {
+				if(direccion=="derecha") {
+					const itemRemovido = clases.shift() 
+					clases.push(itemRemovido)
+				} else if(direccion=="izquierda") {
+					const itemRemovido = clases.pop()
+					clases.unshift(itemRemovido)
+				}
+				
+			}
+
+			const removerClases = () => {
+				imagenes.forEach((item) => {
+					item.classList.remove("img01", "img02", "img03")
+				})
+			}
+
+			asignarClases()
+
+			const slideImagenes = function(direccion) {
+				removerClases()
+				moverClases(direccion)
+				asignarClases()
+				// article.innerHTML = direccion
+			}
+
+			article.addEventListener("touchstart", e => {
+				e.preventDefault()
+
+				// Pueden existir más de un puntero
+				const puntero = e.changedTouches[0]
+				direccion = ""
+
+				// Posición inicial de mi dedo
+				inicioX = puntero.pageX
+				inicioY = puntero.pageY
+
+				// Calcula el tiempo inicial del desplazamiento
+				tiempoInicio = new Date().getTime()
+			})
+
+			article.addEventListener("touchend", e => {
+				e.preventDefault()
+
+				const puntero = e.changedTouches[0]
+				distanciaX = puntero.pageX - inicioX
+				distanciaY = puntero.pageY - inicioY
+
+				tiempoTranscurrido = new Date().getTime() - tiempoInicio
+
+				if(Math.abs(distanciaX) >= umbralDesp && tiempoTranscurrido <= umbralTiempo) {
+
+					direccion = distanciaX < 0 ? "izquierda":"derecha"
+				} else if(Math.abs(distanciaY) >= umbralDesp && tiempoTranscurrido <= umbralTiempo){
+					direccion = distanciaY < 0 ? "arriba":"abajo"
+				}
+
+				if(direccion!="") {
+					slideImagenes(direccion)
+				}
+			})
+		})
+
+
+
+/*		setInterval(()=>{
+			removerClases()
+			moverClases()
+			asignarClases()
+		}, 3000)*/
+
+	</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

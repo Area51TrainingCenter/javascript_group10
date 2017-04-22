@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		html, body {
+			width:100%;
+			height: 100%;
+			margin:0;
+			padding:0;
+		}
+
+		article {
+			width: 100%;
+			height: 100%;
+			background-color: red;
+			font-family: Verdana;
+			font-size: 50px;
+			color: white;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+
+	<article></article>
+
+	<script>
+		window.addEventListener("load", () => {
+			const article = document.querySelector("article")
+			const umbralDesp = 100
+			const umbralTiempo = 300
+
+			let direccion = ""
+			let inicioX, inicioY
+			let distanciaX, distanciaY
+			let tiempoInicio, tiempoTranscurrido
+
+			const mostrarMensaje = function(direccion) {
+				article.innerHTML = direccion
+			}
+
+			article.addEventListener("touchstart", e => {
+				e.preventDefault()
+
+				// Pueden existir más de un puntero
+				const puntero = e.changedTouches[0]
+				direccion = ""
+
+				// Posición inicial de mi dedo
+				inicioX = puntero.pageX
+				inicioY = puntero.pageY
+
+				// Calcula el tiempo inicial del desplazamiento
+				tiempoInicio = new Date().getTime()
+			})
+
+			article.addEventListener("touchend", e => {
+				e.preventDefault()
+
+				const puntero = e.changedTouches[0]
+				distanciaX = puntero.pageX - inicioX
+				distanciaY = puntero.pageY - inicioY
+
+				tiempoTranscurrido = new Date().getTime() - tiempoInicio
+
+				if(Math.abs(distanciaX) >= umbralDesp && tiempoTranscurrido <= umbralTiempo) {
+
+					direccion = distanciaX < 0 ? "izquierda":"derecha"
+				} else if(Math.abs(distanciaY) >= umbralDesp && tiempoTranscurrido <= umbralTiempo){
+					direccion = distanciaY < 0 ? "arriba":"abajo"
+				}
+
+				if(direccion!="") {
+					mostrarMensaje(direccion)
+				}
+			})
+		})
+	</script>
+
+
+</body>
+</html>
