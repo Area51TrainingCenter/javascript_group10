@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+	<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+			margin:0;
+			padding: 0
+		}
+		div.contenedor {
+			position: relative;
+			width: 200px;
+			height: 200px;
+			margin: 40px auto;
+		}
+
+		div.contenedor img {
+			position: absolute;
+			z-index: 1;
+			top: 0;
+			left: 0;
+			width: 200px;
+			height: 200px;
+			display: block;
+			transition: all .100s linear;
+			border: 1px solid black;
+			box-sizing: border-box;
+			pointer-events: none
+		}
+
+
+
+		main {
+			width: 100%;
+			height: 100%;
+			background-color: red;
+		}
+
+
+	</style>
+</head>
+<body>
+	<main>
+		<div class="contenedor">
+			<img src="img/imagen01.jpg">
+		</div>
+	</main>
+
+	<script>
+		window.addEventListener("load", () => {
+			const article = document.querySelector("main")
+			const imagen = document.querySelector("img")
+			const umbralDesp = 100
+			const umbralTiempo = 400
+			let inicioMovimiento = false
+			let escala = 1
+			let d_escala = 0.01
+
+			let distanciaInicial, distanciaFinal
+
+			article.addEventListener("touchstart", e => {
+				e.preventDefault()
+
+				// Pueden existir más de un puntero
+				try{
+					inicioMovimiento = true
+					const puntero1 = e.changedTouches[0]
+					const puntero2 = e.changedTouches[1]
+
+					// Posición inicial de mi dedo
+					const inicioX1 = puntero1.pageX,
+						  inicioY1 = puntero1.pageY,
+						  inicioX2 = puntero2.pageX,
+						  inicioY2 = puntero2.pageY
+
+					// Calcula la distancia inicial
+					distanciaInicial = Math.sqrt(Math.pow(inicioX1-inicioX2, 2) + Math.pow(inicioY1-inicioY2, 2))
+				}catch(e) {
+					
+
+				}
+			})
+
+			article.addEventListener("touchend", e => {
+				e.preventDefault()
+
+				inicioMovimiento = false
+				distanciaInicial = 0
+				distanciaFinal = 0
+			})
+
+			article.addEventListener("touchmove", e => {
+				e.preventDefault()
+
+				if(inicioMovimiento) {
+
+					try {
+						// Pueden existir más de un puntero
+						const puntero1 = e.changedTouches[0]
+						const puntero2 = e.changedTouches[1]
+
+						// Posición inicial de mi dedo
+						const inicioX1 = puntero1.pageX,
+							  inicioY1 = puntero1.pageY,
+							  inicioX2 = puntero2.pageX,
+							  inicioY2 = puntero2.pageY
+
+					    if(!distanciaInicial){
+					    	distanciaInicial = Math.sqrt(Math.pow(inicioX1-inicioX2, 2) + Math.pow(inicioY1-inicioY2, 2))
+					    }
+
+						// Calcula la distancia final
+						distanciaFinal = Math.sqrt(Math.pow(inicioX1-inicioX2, 2) + Math.pow(inicioY1-inicioY2, 2))
+
+						if(distanciaFinal > distanciaInicial) {
+							escala+=d_escala
+							imagen.style.transform = `scale(${escala})`
+						} else {
+							escala-=d_escala
+							imagen.style.transform = `scale(${escala})`
+						}
+
+					}catch(e) {
+					
+					}
+				}
+			})
+		})
+
+
+
+/*		setInterval(()=>{
+			removerClases()
+			moverClases()
+			asignarClases()
+		}, 3000)*/
+
+	</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
